@@ -172,3 +172,21 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Standard Python ignores...
+# Environment stuff...
+# Data (usually managed outside git or with LFS/DVC)
+# data/
+# Logs
+logs/
+# Models (usually large)
+models/*.pkl
+models/*.h5
+models/*.onnx
+# Notebook checkpoints
+# IDE folders
+.vscode/
+.idea/
+# OS files
+.DS_Store
+Thumbs.db
