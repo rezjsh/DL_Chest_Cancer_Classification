@@ -38,6 +38,7 @@ augmentation:
 create_model:
   use_augmentation: True
   model_name: "custom"
+  image_channels: 3
   optimizer: "adam"
   dropout_rate: 0.3
   dense_units: 256
@@ -50,6 +51,7 @@ create_model:
   min_lr: 1e-6
   use_tensorboard: True
   freeze_base_model: True
+  fine_tune_num_layers: 10
 
 callbacks:
   use_tensorboard: True

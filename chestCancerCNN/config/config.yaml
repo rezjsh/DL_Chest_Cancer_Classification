@@ -28,6 +28,7 @@ callbacks:
 model_trainer:
   root_dir: "models/model_trainer"
   model_dir: "models/model_trainer"
+  model_name: "chest_cancer_model"
 
 evaluation:
   evaluation_results_filepath: "reports/evaluation/evaluation_metrics.json"

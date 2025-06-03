@@ -1,6 +1,6 @@
 from pathlib import Path
-from arrow import get
-from src.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
+from flask.cli import F
+from src.constants.constants import *
 from src.entity.config_entity import AugmentationConfig, CallbacksConfig, DataIngestionConfig, DataLoaderConfig, DataValidationConfig, CreateModelConfig, EvaluationConfig, ModelTrainerConfig, PredictionConfig
 from src.utils.helpers import read_yaml_file, create_directory
 from src.utils.logging_setup import logger
@@ -41,8 +41,8 @@ class ConfigManager:
         '''
         Returns the data validation configuration.
         '''
-        config = self.config.dataset
-        params = self.params.dataset
+        config = self.config.validation
+        params = self.params.validation
         get_data_validation_config = DataValidationConfig(
             data_dir=config.data_dir,
             extracted_dir=config.extracted_dir,
@@ -59,8 +59,8 @@ class ConfigManager:
         '''
         Returns the data loader configuration.
         '''
-        config = self.config.dataset
-        params = self.params.dataset
+        config = self.config.data_loader
+        params = self.params.data_loader
         dirs_to_create = [
             Path(config.data_dir),
             Path(config.visualization_dir)
@@ -69,7 +69,7 @@ class ConfigManager:
         get_data_loader_config = DataLoaderConfig(
             data_dir=Path(config.data_dir),
             visualization_dir=Path(config.visualization_dir),
-            image_size=tuple(params.image_size),
+            image_size=(params.image_size_width, params.image_size_height),
             batch_size=params.batch_size,
             validation_split=params.validation_split,
             seed=params.seed,
@@ -89,8 +89,8 @@ class ConfigManager:
         '''
         Returns the data augmentation configuration.
         '''
-        config = self.config.dataset
-        params = self.params.dataset
+        config = self.config.augmentation
+        params = self.params.augmentation
 
         dirs_to_create = [
             Path(config.visualization_dir)
@@ -116,15 +116,15 @@ class ConfigManager:
         '''
         Returns the create model configuration.
         '''
-        config = self.config.model
-        params = self.params.model
+        config = self.config.create_model
+        params = self.params.create_model
 
         dirs_to_create=[Path(config.model_dir)]
         create_directory(dirs_to_create)
         get_create_model_config = CreateModelConfig(
             root_dir=config.root_dir,
             model_dir=config.model_dir,
-            model_name=config.model_name,
+            model_name=params.model_name,
             use_augmentation=params.use_augmentation,
             optimizer=params.optimizer,
             learning_rate=params.learning_rate,
@@ -135,7 +135,9 @@ class ConfigManager:
             patience=params.patience,
             min_lr=params.min_lr,
             use_tensorboard=params.use_tensorboard,
-            freeze_base_model=params.freeze_base_model
+            freeze_base_model=params.freeze_base_model,
+            fine_tune_num_layers=params.fine_tune_num_layers,
+            image_channels=params.image_channels
         )
         logger.info("Create model configuration created successfully.")
         return get_create_model_config
@@ -144,8 +146,8 @@ class ConfigManager:
         '''
         Returns the model callbacks configuration.
         '''
-        config = self.config.model
-        params = self.params.model
+        config = self.config.callbacks
+        params = self.params.callbacks
 
         dirs_to_create = [
             Path(config.tensorboard_log_dir),
@@ -188,8 +190,8 @@ class ConfigManager:
         '''
         Returns the model trainer configuration.
         '''
-        config = self.config.model
-        params = self.params.model
+        config = self.config.model_trainer
+        params = self.params.model_trainer
 
         dirs_to_create = [
             Path(config.model_dir)
@@ -229,8 +231,8 @@ class ConfigManager:
         '''
         Returns the model evaluation configuration.
         '''
-        config = self.config.model
-        params = self.params.model
+        config = self.config.evaluation
+        params = self.params.evaluation
 
         dir_to_create = [
             Path(config.evaluation_results_filepath).parent,
@@ -280,8 +282,8 @@ class ConfigManager:
         '''
         Returns the model prediction configuration.
         '''
-        config = self.config.model
-        params = self.params.model
+        config = self.config.prediction
+        params = self.params.prediction
 
         dirs_to_create = [
             Path(config.predictions_filepath).parent
