@@ -30,33 +30,33 @@ if __name__ == '__main__':
         # logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 
 
-        # --- Data Loader Stage ---
-        STAGE_NAME = "Data Loader Stage"
-        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        data_loader_pipeline = DataLoaderPipeline(config=config_manager)
-        datasets, dataset_info = data_loader_pipeline.run_pipeline()
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        # # --- Data Loader Stage ---
+        # STAGE_NAME = "Data Loader Stage"
+        # logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+        # data_loader_pipeline = DataLoaderPipeline(config=config_manager)
+        # datasets, dataset_info = data_loader_pipeline.run_pipeline()
+        # logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 
-        # --- Data Augmentation Stage ---
-        STAGE_NAME = "Data Augmentation Stage"
-        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        data_augmentation_pipeline = DataAugmentationPipeline(config=config_manager)
-        augmented_datasets, dataset_info = data_augmentation_pipeline.run_pipeline(datasets, dataset_info)
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        # # --- Data Augmentation Stage ---
+        # STAGE_NAME = "Data Augmentation Stage"
+        # logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+        # data_augmentation_pipeline = DataAugmentationPipeline(config=config_manager)
+        # augmented_datasets, dataset_info = data_augmentation_pipeline.run_pipeline(datasets, dataset_info)
+        # logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 
-        # --- Model Creation Stage ---
-        STAGE_NAME = "Model Creation Stage"
-        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        model_creation_pipeline = ModelCreationPipeline(config=config_manager)
-        model = model_creation_pipeline.run_pipeline(dataset_info['image_shape'], dataset_info['num_classes'], augmented_datasets['train'])
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        # # --- Model Creation Stage ---
+        # STAGE_NAME = "Model Creation Stage"
+        # logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+        # model_creation_pipeline = ModelCreationPipeline(config=config_manager)
+        # model = model_creation_pipeline.run_pipeline(dataset_info['train']['image_size'], dataset_info['train']['num_classes'], augmented_datasets)
+        # logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 
-    #     # --- Model Callbacks Stage ---
-    #     STAGE_NAME = "Model Callbacks Stage"
-    #     logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-    #     model_callbacks_pipeline = ModelCallbacksPipeline(config=config_manager)
-    #     callbacks = model_callbacks_pipeline.run_pipeline()
-    #     logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        # --- Model Callbacks Stage ---
+        STAGE_NAME = "Model Callbacks Stage"
+        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+        model_callbacks_pipeline = ModelCallbacksPipeline(config=config_manager)
+        callbacks = model_callbacks_pipeline.run_pipeline()
+        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 
     #     # --- Model Trainer Stage ---
     #     STAGE_NAME = "Model Trainer Stage"
