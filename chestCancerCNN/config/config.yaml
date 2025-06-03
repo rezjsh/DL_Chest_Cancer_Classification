@@ -1,0 +1,47 @@
+dataset:
+  data_dir: "data/01_raw"
+  extracted_dir: "data/01_raw/extracted"
+  dataset_name: "mohamedhanyyy/chest-ctscan-images"
+
+validation:
+  data_dir: "data/01_raw"
+  extracted_dir: "data/01_raw/extracted"
+  dataset_name: "mohamedhanyyy/chest-ctscan-images"
+  validation_report_file: "reports/data_validation_report.json"
+
+data_loader:
+  data_dir: "data/01_raw/extracted"
+  visualization_dir: "reports/figures/data_loader"
+
+augmentation:
+  visualization_dir: reports/figures/augmentations
+
+create_model:
+  root_dir: "models"
+  model_dir: "models/base_model"
+
+callbacks:
+  tensorboard_log_dir: "reports/logs/tensorboard"
+  checkpoint_model_filepath: "models/checkpoints/best_model.keras"
+  csv_logger_filepath: "reports/logs/training_log.csv"
+
+model_trainer:
+  root_dir: "models/model_trainer"
+  model_dir: "models/model_trainer"
+
+evaluation:
+  evaluation_results_filepath: "reports/evaluation/evaluation_metrics.json"
+  evaluation_plots_dir: "reports/plots/evaluation/"
+  classification_report_filepath: "reports/evaluation/classification_report.json"
+  confusion_matrix_filepath: "reports/plots/evaluation/confusion_matrix.png"
+  roc_auc_curve_filepath: "reports/plots/evaluation/roc_auc_curve.png"
+  precision_recall_curve_filepath: "reports/plots/evaluation/precision_recall_curve.png"
+  f1_score_curve_filepath: "reports/plots/evaluation/f1_score_curve.png"
+  accuracy_curve_filepath: "reports/plots/evaluation/accuracy_curve.png"
+  loss_curve_filepath: "reports/plots/evaluation/loss_curve.png"
+  training_curves_filepath: "reports/plots/evaluation/training_curves.png"
+  validation_curves_filepath: "reports/plots/evaluation/validation_curves.png"
+  test_curves_filepath: "reports/plots/evaluation/test_curves.png"
+
+prediction:
+  predictions_filepath: "reports/predictions/predictions.json"
