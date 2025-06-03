@@ -1,0 +1,122 @@
+validation:
+  expected_splits: ["train", "test", "valid"]
+  expected_classes:
+    [
+      "normal",
+      "adenocarcinoma_left.lower.lobe_T2_N0_M0_Ib",
+      "large.cell.carcinoma_left.hilum_T2_N2_M0_IIIa",
+      "squamous.cell.carcinoma_left.hilum_T1_N2_M0_IIIa",
+    ]
+  valid_extensions: [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".tiff", ".webp"]
+data_loader:
+  image_size_height: 224
+  image_size_width: 224
+  batch_size: 32
+  validation_split: 0
+  seed: 42
+  use_cache: True
+  shuffle_buffer_size: 1000
+  shuffle: True
+  reshuffle_each_iteration: True
+  color_mode: "rgb"
+  crop_to_aspect_ratio: True
+  verbose: 1
+  num_samples: 9
+
+augmentation:
+  seed: 42
+  random_flip: "horizontal_and_vertical"
+  random_rotation: 0.1
+  random_zoom: 0.1
+  random_translation: 0.1
+  random_brightness: 0.15
+  random_contrast: 0.15
+  apply_to_train: True
+  num_examples: 9 # Number of examples to visualize
+  num_augmentations: 3 # Number of augmentations to visualize
+
+create_model:
+  use_augmentation: True
+  model_name: "custom"
+  optimizer: "adam"
+  dropout_rate: 0.3
+  dense_units: 256
+  learning_rate: 0.001
+  loss: "sparse_categorical_crossentropy"
+  use_lr_scheduler: True
+  lr_scheduler_type: "reduce_on_plateau"
+  monitor_metric: "val_loss"
+  patience: 10
+  min_lr: 1e-6
+  use_tensorboard: True
+  freeze_base_model: True
+
+callbacks:
+  use_tensorboard: True
+  tensorboard_histogram_freq: 1
+
+  use_model_checkpoint: True
+  checkpoint_monitor: "val_loss"
+  checkpoint_save_best_only: True
+  checkpoint_save_weights_only: False
+  checkpoint_mode: "auto"
+  checkpoint_verbose: 1
+
+  use_early_stopping: True
+  early_stopping_monitor: "val_loss"
+  early_stopping_patience: 10
+  early_stopping_min_delta: 0.001
+  early_stopping_mode: "auto"
+  early_stopping_restore_best_weights: True
+  early_stopping_verbose: 1
+
+  use_reduce_lr_on_plateau: True
+  reduce_lr_monitor: "val_loss"
+  reduce_lr_factor: 0.2
+  reduce_lr_patience: 5
+  reduce_lr_min_lr: 1e-6
+  reduce_lr_verbose: 1
+
+  use_csv_logger: True
+  csv_logger_append: False
+
+model_trainer:
+  use_pretrained: True
+  freeze_base_model: True
+  optimizer: "adam"
+  learning_rate: 0.001
+  loss: "sparse_categorical_crossentropy"
+  use_lr_scheduler: True
+  lr_scheduler_type: "reduce_on_plateau"
+  monitor_metric: "val_loss"
+  patience: 10
+  min_lr: 1e-6
+  use_tensorboard: True
+  use_auc: True
+  use_precision_recall: True
+  save_best_model: True
+  early_stopping: True
+  epochs: 50
+  batch_size: 32
+  dropout_rate: 0.3
+  dense_units: 256
+  use_batch_norm_head: True
+  use_augmentation_layers: True
+
+evaluation:
+  evaluation_verbose: 1
+  generate_classification_report: True
+  generate_confusion_matrix: True
+  generate_roc_auc_curve: True
+  generate_precision_recall_curve: True
+  generate_f1_score_curve: True
+  generate_accuracy_curve: True
+  generate_loss_curve: True
+  generate_training_curves: True
+  generate_validation_curves: True
+  generate_test_curves: True
+
+prediction:
+  predictions_verbose: 1
+  visualize_predictions: True
+  save_predictions: True
